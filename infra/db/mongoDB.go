@@ -10,7 +10,7 @@ import (
 
 type MongoDB struct {
 	Host        string
-	Port        int
+	Port        string
 	User        string
 	Pass        string
 	DBName      string
@@ -28,7 +28,7 @@ func WithHost(host string) Options {
 	}
 }
 
-func WithPort(port int) Options {
+func WithPort(port string) Options {
 	return func(db *MongoDB) {
 		db.Port = port
 	}
@@ -77,7 +77,7 @@ func WithTimeout(timeout time.Duration) Options {
 }
 
 func (m *MongoDB) uri() string {
-	return fmt.Sprintf("mongodb://%s:%s@%s:%d/%s?authSource=%s", m.User, m.Pass, m.Host, m.Port, m.DBName, m.AuthSource)
+	return fmt.Sprintf("mongodb://%s:%s@%s:%s/%s?authSource=%s", m.User, m.Pass, m.Host, m.Port, m.DBName, m.AuthSource)
 }
 
 func (m *MongoDB) Connect() (*mongo.Client, *mongo.Database, error) {
