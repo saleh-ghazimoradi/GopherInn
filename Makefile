@@ -8,8 +8,9 @@ vet:
 	go vet ./...
 
 fmt:
-	go fmt ./..
+	go fmt ./...
 
-run: vet fmt
+run: fmt vet
 	go run . run
+
 
